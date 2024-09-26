@@ -44,7 +44,7 @@ async fn main() {
                 PrivateKey::from_openssh(&private_key_data).expect("Failed to decode private key");
 
             let mnemonic = encoder::encode::encode(private_key).unwrap();
-            println!("Encoded mnemonic: {}", mnemonic);
+            println!("{}", mnemonic);
         }
         Command::Restore { seed } => {
             if seed == "" {
@@ -65,7 +65,7 @@ async fn main() {
             let sshkey = ssh_key::PrivateKey::from(keypair);
             let ssh_key_string = sshkey.to_openssh(LineEnding::LF).unwrap();
 
-            println!("Restored SSH private key:\n{}", *ssh_key_string);
+            print!("{}", *ssh_key_string);
         }
     };
 }
