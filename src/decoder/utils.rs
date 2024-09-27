@@ -2,8 +2,7 @@ use bip39::Language;
 use indexmap::IndexSet;
 
 fn get_wordlist() -> IndexSet<&'static str> {
-    let wordlist = Language::English.word_list();
-    wordlist.iter().cloned().collect()
+    IndexSet::from_iter(Language::English.word_list().iter().copied())
 }
 
 pub fn mnemonic_to_entropy(mnemonic: &str) -> &[u8; 32] {
