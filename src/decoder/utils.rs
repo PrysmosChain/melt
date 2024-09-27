@@ -1,7 +1,13 @@
-use crate::util::get_wordlist;
+use bip39::Language;
+use indexmap::IndexSet;
+
+fn get_wordlist() -> IndexSet<&'static str> {
+    let wordlist = Language::English.word_list();
+    wordlist.iter().cloned().collect()
+}
 
 pub fn mnemonic_to_entropy(mnemonic: &str) -> &[u8; 32] {
-    let wordlist = get_wordlist::get_wordlist();
+    let wordlist = get_wordlist();
 
     let words: Vec<&str> = mnemonic.split_whitespace().collect();
 
@@ -11,7 +17,9 @@ pub fn mnemonic_to_entropy(mnemonic: &str) -> &[u8; 32] {
 
     let mut bits = String::new();
     for word in &words {
-        let index = wordlist.get(*word).expect("Word not found in wordlist");
+        let index = wordlist
+            .get_index_of(word)
+            .expect("Word not found in wordlist");
         bits.push_str(&format!("{:011b}", index));
     }
 

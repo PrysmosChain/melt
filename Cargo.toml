@@ -11,6 +11,7 @@ hex = "0.4.3"
 ssh-key = { version = "0.6.6", features = ["ed25519"] }
 tokio = { version = "1.40.0", features = ["full"] }
 clap = { version = "4.5.18", features = ["derive"] }
+indexmap = "2.5.0"
 
 [profile.release]
 lto = true
